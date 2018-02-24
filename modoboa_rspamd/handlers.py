@@ -15,7 +15,7 @@ from modoboa.parameters import tools as param_tools
 def update_rspamd_dkim_maps(sender, domains, **kwargs):
     """Update config maps."""
     qset = admin_models.Domain.objects.filter(enable_dkim=True)
-    config = dict(param_tools.get_global_parameters())
+    config = dict(param_tools.get_global_parameters("modoboa_rspamd"))
     if not config["path_map_path"] or not config["selector_map_path"]:
         return
     dkim_path_map = open(config["path_map_path"], "w")
