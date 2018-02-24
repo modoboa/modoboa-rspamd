@@ -1,0 +1,2 @@
+include README.rst LICENSE requirements.txt
+recursive-include modoboa_rspamd *.html *.js *.css *.png *.po *.mo
