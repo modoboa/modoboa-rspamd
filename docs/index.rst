@@ -1,0 +1,23 @@
+.. modoboa-radicale documentation master file, created by
+   sphinx-quickstart on Sun Feb 22 14:29:06 2015.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to modoboa-rspamd's documentation!
+============================================
+
+This `Modoboa <http://modoboa.org/>`_ extension provides a simple
+management frontend for `Rspamd <http://rspamd.com/>`_, a complete
+mail tools capable of antivirus, dkim signing, dmarch checking and more...
+
+Features currently supported are:
+
+* Interfacing modoboa and rpsamd for dkim keys management
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   setup
+

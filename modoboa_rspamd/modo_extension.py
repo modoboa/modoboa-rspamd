@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy
 from modoboa.core.extensions import ModoExtension, exts_pool
 from modoboa.parameters import tools as param_tools
 
-from . import __version__, forms
+from . import __version__
 
 
 class Rspamd(ModoExtension):
@@ -19,9 +19,6 @@ class Rspamd(ModoExtension):
     label = ugettext_lazy("Rspamd frontend")
     description = ugettext_lazy("Rspamd management frontend")
     version = __version__
-
-    def load(self):
-        param_tools.registry.add("global", forms.ParametersForm, "Rspamd")
 
 
 exts_pool.register_extension(Rspamd)
