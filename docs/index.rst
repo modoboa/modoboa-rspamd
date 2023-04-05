@@ -1,5 +1,4 @@
-.. modoboa-radicale documentation master file, created by
-   sphinx-quickstart on Sun Feb 22 14:29:06 2015.
+.. modoboa-rspamd documentation master file
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
