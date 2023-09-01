@@ -6,10 +6,10 @@ from django.core.management.base import BaseCommand, CommandError
 
 from modoboa.parameters import tools as param_tools
 
-from .... import models
+from modoboa.admin import models
 
 
-class ManageRSPAMDMap(BaseCommand):
+class Command(BaseCommand):
     """Command class."""
 
     def load_files(self):
@@ -23,7 +23,7 @@ class ManageRSPAMDMap(BaseCommand):
             with open(config["key_path_map_path"], "r") as f:
                 for line in f:
                     domain_name, path = line.split()
-                    dkim_path_map[domain_name] = path.replace("\n","")
+                    self.dkim_path_map[domain_name] = path.replace("\n","")
         except FileNotFoundError:
             pass
         self.selector_map = {}
@@ -31,7 +31,7 @@ class ManageRSPAMDMap(BaseCommand):
             with open(config["selector_map_path"], "r") as f:
                 for line in f:
                     domain_name, selector = line.split()
-                    selector_map[domain_name] = path.replace("\n","")
+                    self.selector_map[domain_name] = path.replace("\n","")
         except FileNotFoundError:
             pass
 
@@ -48,14 +48,14 @@ class ManageRSPAMDMap(BaseCommand):
 
         # modify selector map
         condition = (selector_entry is None or
-                     selector_entry=!domain_instance.dkim_key_selector)
+                     selector_entry != domain_instance.dkim_key_selector)
         if condition:
             self.selector_map[domain_name] = domain_instance.dkim_key_selector
             self.modified_selector_file = True
 
         # modify dkim path map
         condition = (dkim_path_entry is None or
-                     dkim_path_entry=!domain_instance.dkim_private_key_path)
+                     dkim_path_entry != domain_instance.dkim_private_key_path)
         if condition:
             self.dkim_path_map[domain_name] = domain_instance.dkim_private_key_path
             self.modified_key_path_file = True
@@ -86,9 +86,9 @@ class ManageRSPAMDMap(BaseCommand):
 
         if self.modified_selector_file:
             with open(config["selector_map_path"], "w") as f:
-                for domain_name, selector in self.selector_map.values():
+                for domain_name, selector in self.selector_map.items():
                     f.write(f"{domain_name} {selector}\n")
         if self.modified_key_path_file:
             with open(config["key_path_map_path"], "w") as f:
-                for domain_name, key_path in self.dkim_path_map.values():
+                for domain_name, key_path in self.dkim_path_map.items():
                     f.write(f"{domain_name} {key_path}\n")

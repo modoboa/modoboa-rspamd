@@ -4,7 +4,7 @@
 
 from __future__ import unicode_literals
 
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 
 from modoboa.core.extensions import ModoExtension, exts_pool
 from modoboa.parameters import tools as param_tools
@@ -16,8 +16,8 @@ class Rspamd(ModoExtension):
     """Rspamd extension class."""
 
     name = "modoboa_rspamd"
-    label = ugettext_lazy("Rspamd frontend")
-    description = ugettext_lazy("Rspamd management frontend")
+    label = gettext_lazy("Rspamd frontend")
+    description = gettext_lazy("Rspamd management frontend")
     version = __version__
 
 

@@ -14,8 +14,8 @@ from modoboa.admin import models as admin_models
 def update_rspamd_dkim_maps(sender, instance, created, **kwargs):
     """Update config maps."""
     # Modify or create
-    condition = (instance._loaded_values["dkim_private_key_path"] != instance.dkim_private_key_path or
-         instance._loaded_values["dkim_key_selector"] != instance.dkim_key_selector
+    condition = (instance._loaded_values.get("dkim_private_key_path") != instance.dkim_private_key_path or
+         instance._loaded_values.get("dkim_key_selector") != instance.dkim_key_selector
          )
     if condition:
         queue = django_rq.get_queue('dkim')

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.apps import AppConfig
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 
 
 def load_rspamd_settings():
@@ -16,9 +16,9 @@ def load_rspamd_settings():
     from .api.v2 import serializers
 
     param_tools.registry.add(
-        "global", app_settings.ParametersForm, ugettext_lazy("Rspamd"))
+        "global", app_settings.ParametersForm, gettext_lazy("Rspamd"))
     param_tools.registry.add2(
-        "global", "modoboa_rspamd", ugettext_lazy("Rspamd"),
+        "global", "modoboa_rspamd", gettext_lazy("Rspamd"),
         app_settings.RSPAMD_PARAMETERS_STRUCT,
         serializers.RspamdSettingsSerializer)
 

@@ -1,7 +1,5 @@
-from __future__ import unicode_literals
-
-from django.conf.urls import include, url
+from django.urls import include, path
 
 urlpatterns = [
-    url(r"", include("modoboa.urls")),
+    path(r'', include('modoboa.urls')),
 ]
