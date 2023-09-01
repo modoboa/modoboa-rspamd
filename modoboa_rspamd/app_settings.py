@@ -18,13 +18,15 @@ RSPAMD_PARAMETERS_STRUCT = collections.OrderedDict([
                 "label": _("Path map path"),
                 "help_text": _(
                     "Absolute path of the file which contains "
-                    "paths to DKIM private keys.")
+                    "paths to DKIM private keys. "
+                    "Must be readable by _rspamd group or user.")
             }),
             ("selector_map_path", {
                 "label": _("Selector map path"),
                 "help_text": _(
                     "Absolute path of the file which contains "
-                    "names of DKIM selectors.")
+                    "names of DKIM selectors. "
+                    "Must be readable by _rspamd group or user.")
             })
         ])
     })
@@ -44,7 +46,8 @@ class ParametersForm(param_forms.AdminParametersForm):
         initial="",
         help_text=_(
             "Absolute path of the file which contains paths to DKIM "
-            "private keys."
+            "private keys. "
+            "Must be readable by _rspamd group or user."
         ),
         required=False
     )
@@ -53,7 +56,8 @@ class ParametersForm(param_forms.AdminParametersForm):
         initial="",
         help_text=_(
             "Absolute path of the file which contains names of "
-            "DKIM selectors."
+            "DKIM selectors. "
+            "Must be readable by _rspamd group or user."
         ),
         required=False
     )

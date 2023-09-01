@@ -87,8 +87,8 @@ class ManageRSPAMDMap(BaseCommand):
         if self.modified_selector_file:
             with open(config["selector_map_path"], "w") as f:
                 for domain_name, selector in self.selector_map.values():
-                    f.write(f"{domain_name} {selector}")
+                    f.write(f"{domain_name} {selector}\n")
         if self.modified_key_path_file:
             with open(config["key_path_map_path"], "w") as f:
                 for domain_name, key_path in self.dkim_path_map.values():
-                    f.write(f"{domain_name} {key_path}")
+                    f.write(f"{domain_name} {key_path}\n")

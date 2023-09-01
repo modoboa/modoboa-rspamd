@@ -33,9 +33,17 @@ Then you need to edit postfix configuration to re-route mails to rspamd milter.
 
 #. DKIM setup.
 
-Go to the *Modoboa > Parameters > Rspamd* panel and edit the
+It is recommended to create a "dkim" user and add it to both _rspamd and modoboa group.
+If you want to fine tune the permission, modoboa needs read/write and _rspamd only read.
+
+The map updating process is automatically done in the background using RQ (starting modoboa 2.2.0).
+Please take a look at the RQ instructions on modoboas main documentation. You only need to change
+the user for the supervisord ini file.
+
+Then, go to the *Modoboa > Parameters > Rspamd* panel and edit the
 **Path map path** and **Selector map path** settings if necessary
 (an absolute path is required and modoboa user must have write permission on it).
+
 
 Then update Rspamd dkim signing configuration (should be here : /etc/rspamd/local.d/dkim_signing.conf):
 
@@ -49,10 +57,6 @@ Then update Rspamd dkim signing configuration (should be here : /etc/rspamd/loca
 When the configuration is done, Modoboa will completly handles the
 updates when DKIM is changed on a domain.
 
-
-.. note::
-
-   Map updated are done when `manage.py modo manage_dkim_keys` is run.
 
 #. Other settings.
 
