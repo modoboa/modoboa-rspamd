@@ -5,6 +5,9 @@
 Welcome to modoboa-rspamd's documentation!
 ============================================
 
+.. image:: _static/modoboa_logo.png
+   :align: center
+
 This `Modoboa <http://modoboa.org/>`_ extension provides a simple
 management frontend for `Rspamd <http://rspamd.com/>`_, a complete
 mail tools capable of antivirus, dkim signing, dmarch checking and more...
