@@ -28,12 +28,12 @@ class RspamdSettingsSerializer(serializers.Serializer):
     """A serializer for global parameters."""
 
     # dkim_settings_sep
-    key_path_map_path = serializers.CharField(default="/var/lib/dkim/keys.path.map",
+    key_path_map = serializers.CharField(default="/var/lib/dkim/keys.path.map",
                                           allow_blank=True)
     selector_map_path = serializers.CharField(default="/var/lib/dkim/selectors.path.map",
                                               allow_blank=True)
 
-    def validate_key_path_map_path(self, value):
+    def validate_key_path_map(self, value):
         validate_file_path(value)
         return value
 

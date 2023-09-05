@@ -14,7 +14,7 @@ RSPAMD_PARAMETERS_STRUCT = collections.OrderedDict([
     ("dkim_settings_sep", {
         "label": _("DKIM signing settings"),
         "params": collections.OrderedDict([
-            ("key_path_map_path", {
+            ("key_path_map", {
                 "label": _("Path map path"),
                 "help_text": _(
                     "Absolute path of the file which contains "
@@ -41,7 +41,7 @@ class ParametersForm(param_forms.AdminParametersForm):
     dkim_settings_sep = form_utils.SeparatorField(
         label=_("DKIM signing settings"))
 
-    key_path_map_path = forms.CharField(
+    key_path_map = forms.CharField(
         label=_("Path map path"),
         initial="",
         help_text=_(
