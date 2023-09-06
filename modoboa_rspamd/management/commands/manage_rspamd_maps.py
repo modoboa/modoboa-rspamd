@@ -14,13 +14,13 @@ class Command(BaseCommand):
 
     def load_files(self):
         config = dict(param_tools.get_global_parameters("modoboa_rspamd"))
-        if not config["key_path_map"] or not config["selector_map_path"]:
+        if not config["key_map_path"] or not config["selector_map_path"]:
             raise CommandError("path map path and/or selector map path "
                 "not set in modoboa rspamd settings.")
 
         self.dkim_path_map = {}
         try:
-            with open(config["key_path_map"], "r") as f:
+            with open(config["key_map_path"], "r") as f:
                 for line in f:
                     domain_name, path = line.split()
                     self.dkim_path_map[domain_name] = path.replace("\n","")
@@ -89,6 +89,6 @@ class Command(BaseCommand):
                 for domain_name, selector in self.selector_map.items():
                     f.write(f"{domain_name} {selector}\n")
         if self.modified_key_path_file:
-            with open(config["key_path_map"], "w") as f:
+            with open(config["key_map_path"], "w") as f:
                 for domain_name, key_path in self.dkim_path_map.items():
                     f.write(f"{domain_name} {key_path}\n")
