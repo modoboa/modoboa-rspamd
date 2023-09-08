@@ -1,0 +1,54 @@
+name: Modoboa rspamd plugin
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  release:
+    branches: [ master ]
+    types: [ published ]
+
+env:
+  POSTGRES_HOST: localhost
+
+jobs:
+  release:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Build packages
+        run: |
+          sudo apt-get install librrd-dev rrdtool libssl-dev gettext
+          python -m pip install --upgrade pip build
+          pip install -r requirements.txt
+          cd ..
+          git clone https://github.com/modoboa/modoboa.git
+          cd modoboa
+          python setup.py develop
+          cd ../modoboa-rspamd/modoboa_rspamd
+          django-admin compilemessages
+          cd ..
+          python -m build
+      - name: Publish to Test PyPI
+        if: endsWith(github.event.ref, '/master')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.test_pypi_password }}
+          repository_url: https://test.pypi.org/legacy/
+          skip_existing: true
+      - name: Publish distribution to PyPI
+        if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.pypi_password }}
+          skip_existing: true
