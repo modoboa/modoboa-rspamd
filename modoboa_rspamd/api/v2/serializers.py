@@ -1,3 +1,4 @@
+"""Modoboa rspamd serializer for api v2."""
 
 import os
 
@@ -5,24 +6,16 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
-from modoboa_rspamd import handlers
-
 
 def validate_file_path(value):
     if value:
-        if os.path.isdir(value):
+        if not os.path.isabs(value):
+            # We only check if it is absolute,
+            # since it shouldn't be accessible to modoboa user.
+            # Only to _rspamd
             raise serializers.ValidationError(
-                _("Path provided is a directory")
+                _("Path provided is not absolute.")
                 )
-        condition = (os.path.exists(value) and os.access(value))\
-                    or\
-                    (not os.path.exists(value) and os.access(os.path.dirname(value),
-                                                             os.W_OK))
-        if not condition:
-            raise serializers.ValidationError(
-                _("File or directory is not writable")
-                )
-
 
 class RspamdSettingsSerializer(serializers.Serializer):
     """A serializer for global parameters."""
