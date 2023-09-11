@@ -37,13 +37,15 @@ class Command(BaseCommand):
 
     def manage_domain(self, domain_instance):
         domain_name = domain_instance.name
-        selector_entry = self.selector_map.get(domain_name, None)
-        dkim_path_entry = self.dkim_path_map.get(domain_name, None)
+        selector_entry = self.selector_map.get(domain_name)
+        dkim_path_entry = self.dkim_path_map.get(domain_name)
         if not domain_instance.enable_dkim:
             if selector_entry is not None:
                 self.selector_map.pop(domain_name)
+                self.modified_selector_file = True
             if dkim_path_entry is not None:
                 self.dkim_path_map.pop(domain_name)
+                self.modified_key_path_file = True
             return
 
         # modify selector map

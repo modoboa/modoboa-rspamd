@@ -11,9 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 from logging.handlers import SysLogHandler
 import os
 
-
-from modoboa.core.dev_settings import *  # noqa
-
+from modoboa.test_settings import *  # noqa
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -34,7 +32,11 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+INTERNAL_IPS = ['127.0.0.1']
+
 SITE_ID = 1
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # A list of all the people who get code error notifications. When DEBUG=False
 # and a view raises an exception, Django will email these people with the full
@@ -48,8 +50,8 @@ SITE_ID = 1
 # Security settings
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
 # Application definition
 
@@ -66,13 +68,11 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
-    'phonenumber_field',
     'django_otp',
     'django_otp.plugins.otp_totp',
     'django_otp.plugins.otp_static',
     'django_rename_app',
     'django_rq',
-    'djangobower',
 )
 
 # A dedicated place to register Modoboa applications
@@ -147,7 +147,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'modoboa.core.context_processors.top_notifications',
-                'modoboa.core.context_processors.new_admin_url',
+                'modoboa.core.context_processors.new_admin_url'
             ],
             'debug': True,
         },
@@ -201,7 +201,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 STATIC_URL = '/sitestatic/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'sitestatic')
 STATICFILES_DIRS = (
-    './bower_components',
+    os.path.join(BASE_DIR, '..', 'modoboa', 'bower_components'),
 )
 
 MEDIA_URL = '/media/'
@@ -346,6 +346,10 @@ LOGGING = {
         'syslog': {
             'format': '%(name)s: %(levelname)s %(message)s'
         },
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[%(server_time)s] %(message)s',
+        }
     },
     'handlers': {
         'mail-admins': {
@@ -356,17 +360,19 @@ LOGGING = {
         'syslog-auth': {
             'class': 'logging.handlers.SysLogHandler',
             'facility': SysLogHandler.LOG_AUTH,
-            'formatter': 'syslog',
-            'address': '/dev/log'
-        },
-        'syslog-mail': {
-            'class': 'logging.handlers.SysLogHandler',
-            'facility': SysLogHandler.LOG_MAIL,
             'formatter': 'syslog'
         },
         'modoboa': {
             'class': 'modoboa.core.loggers.SQLHandler',
-        }
+        },
+        'console': {
+            'class': 'logging.StreamHandler'
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
     },
     'loggers': {
         'django': {
@@ -384,11 +390,15 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False
         },
-        'modoboa.policyd': {
-            'handlers': ['syslog-mail'],
+        'django.server': {
+            'handlers': ['django.server'],
             'level': 'INFO',
-            'propagate': False
-        }
+            'propagate': False,
+        },
+        # 'django_auth_ldap': {
+        #     'level': 'DEBUG',
+        #     'handlers': ['console']
+        # },
     }
 }
 
