@@ -31,7 +31,7 @@ class Command(BaseCommand):
             with open(config["selector_map_path"], "r") as f:
                 for line in f:
                     domain_name, selector = line.split()
-                    self.selector_map[domain_name] = path.replace("\n","")
+                    self.selector_map[domain_name] = selector
         except FileNotFoundError:
             pass
 
