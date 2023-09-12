@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-11 17:55+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: api/v2/serializers.py:17
+msgid "Path provided is not absolute."
+msgstr ""
+
+#: app_settings.py:15 app_settings.py:42
+msgid "DKIM signing settings"
+msgstr ""
+
+#: app_settings.py:18 app_settings.py:45
+msgid "Key map path"
+msgstr ""
+
+#: app_settings.py:20 app_settings.py:48
+msgid ""
+"Absolute path of the file which contains paths to DKIM private keys. Must be "
+"readable by _rspamd group or user."
+msgstr ""
+
+#: app_settings.py:25 app_settings.py:55
+msgid "Selector map path"
+msgstr ""
+
+#: app_settings.py:27 app_settings.py:58
+msgid ""
+"Absolute path of the file which contains names of DKIM selectors. Must be "
+"readable by _rspamd group or user."
+msgstr ""
+
+#: apps.py:19 apps.py:21
+msgid "Rspamd"
+msgstr ""
+
+#: modo_extension.py:19
+msgid "Rspamd frontend"
+msgstr ""
+
+#: modo_extension.py:20
+msgid "Rspamd management frontend"
+msgstr ""

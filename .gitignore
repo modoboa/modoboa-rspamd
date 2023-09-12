@@ -22,6 +22,7 @@ var/
 .installed.cfg
 *.egg
 *.eggs
+test_project/sitestatic/*
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -54,3 +55,4 @@ docs/_build/
 # PyBuilder
 target/
 test_project/modoboa.sql
+*.kdev4

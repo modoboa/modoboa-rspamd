@@ -15,7 +15,8 @@ def update_rspamd_dkim_maps(sender, instance, created, **kwargs):
     """Update config maps."""
     # Modify or create
     condition = (instance._loaded_values.get("dkim_private_key_path") != instance.dkim_private_key_path or
-         instance._loaded_values.get("dkim_key_selector") != instance.dkim_key_selector
+         instance._loaded_values.get("dkim_key_selector") != instance.dkim_key_selector or
+         instance._loaded_values.get("enable_dkim") != instance.enable_dkim
          )
     if condition:
         queue = django_rq.get_queue('dkim')
