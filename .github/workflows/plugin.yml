@@ -39,7 +39,7 @@ jobs:
           python -m build
       - name: Publish to Test PyPI
         if: endsWith(github.event.ref, '/master')
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.test_pypi_password }}
@@ -47,7 +47,7 @@ jobs:
           skip_existing: true
       - name: Publish distribution to PyPI
         if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.pypi_password }}
