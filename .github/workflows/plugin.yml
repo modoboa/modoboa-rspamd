@@ -16,6 +16,11 @@ jobs:
   release:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/modoboa-rspamd
+    permissions:
+      id-token: write 
     steps:
       - uses: actions/checkout@v3
         with:
@@ -41,14 +46,7 @@ jobs:
         if: endsWith(github.event.ref, '/master')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: __token__
-          password: ${{ secrets.test_pypi_password }}
           repository_url: https://test.pypi.org/legacy/
-          skip_existing: true
       - name: Publish distribution to PyPI
         if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          user: __token__
-          password: ${{ secrets.pypi_password }}
-          skip_existing: true
